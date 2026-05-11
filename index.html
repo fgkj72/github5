@@ -283,7 +283,179 @@
             </div>
 
             <img src="./skin/lb.png" class="responsive-img">
-  <!-- ========== 1. 在线人数 HTML代码 ========== -->
+<style>
+        /* ========== 在线人数显示样式 ========== */
+        .online-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px auto;
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
+            border: 1px solid rgba(255,215,0,0.5);
+            border-radius: 20px;
+            padding: 8px 20px;
+            backdrop-filter: blur(10px);
+            animation: counter-pulse 2s ease-in-out infinite;
+        }
+        
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: dot-blink 1s ease-in-out infinite;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .online-text {
+            color: #ffd700;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .online-number {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .online-number.jump {
+            animation: numberJump 0.4s ease-out;
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ff00;
+        }
+        
+        @keyframes numberJump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes dot-blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        
+        @keyframes counter-pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+            50% { box-shadow: 0 0 20px rgba(255,215,0,0.6); }
+        }
+        
+        /* ========== 实时提现（奖励墙）样式 ========== */
+        .reward-wall {
+            max-width: 320px;
+            margin: 15px auto 0;
+            background: linear-gradient(135deg, rgba(255,215,0,0.15) 0%, rgba(255,140,0,0.1) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            padding: 10px 15px;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.2),
+                inset 0 0 20px rgba(255, 215, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .reward-wall-title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .reward-scroll-container {
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .reward-scroll-content {
+            animation: scroll-up 10s linear infinite;
+        }
+        
+        .reward-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 0;
+            white-space: nowrap;
+            font-size: 12px;
+            border-bottom: 1px dashed rgba(255, 215, 0, 0.2);
+        }
+        
+        .reward-item:last-child {
+            border-bottom: none;
+        }
+        
+        .reward-icon-small {
+            font-size: 14px;
+        }
+        
+        .reward-user {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        .reward-action {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .reward-money {
+            color: #ff6b6b;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+        }
+        
+        @keyframes scroll-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        
+        /* 页面基础样式 */
+
+        
+        h2 {
+            color: #ffd700;
+            margin: 30px 0 15px;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+        
+        .demo-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+a.btn1 {
+  display: inline-block;
+  padding: 3% 3%;
+  text-align: center;
+  text-decoration: none;
+  
+  /* 背景图横向自适应，高度自动 */
+  background-image: url(./images/bg2.png);
+  background-size: 100% 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  
+  border-radius: 6px;
+}
+
+a.btn1 .download-text {
+  color: #fff;
+  font-size: 14px;
+}
+    </style>
+<body>
+    
+    <!-- ========== 1. 在线人数 HTML代码 ========== -->
     
         <!-- 在线人数显示 -->
         <div class="online-counter" id="onlineCounter">
